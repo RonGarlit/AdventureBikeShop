@@ -1,0 +1,4 @@
+C:\AdventureBikeShop\BikeShop.Domain\bin\Debug\BikeShop.Domain.dll
+C:\AdventureBikeShop\BikeShop.Domain\bin\Debug\BikeShop.Domain.pdb
+C:\AdventureBikeShop\BikeShop.Domain\obj\Debug\BikeShop.Domain.dll
+C:\AdventureBikeShop\BikeShop.Domain\obj\Debug\BikeShop.Domain.pdb

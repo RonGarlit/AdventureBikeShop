@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeShop.Domain", "BikeShop.Domain\BikeShop.Domain.csproj", "{AA75EEC4-9C26-471E-A941-20888942E28B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NOTES", "NOTES", "{BCB754F0-2312-48C6-86D2-78244CBB04A4}"
+	ProjectSection(SolutionItems) = preProject
+		NOTES\2014-10-21 - Updated UI Nuget Packages.txt = NOTES\2014-10-21 - Updated UI Nuget Packages.txt
+		NOTES\Five Plus Project Proposal and Work Progress Notes-REV03.docx = NOTES\Five Plus Project Proposal and Work Progress Notes-REV03.docx
+		NOTES\RoughNotes.txt = NOTES\RoughNotes.txt
+		ShopProductsJavaScriptNotesForViewCode.txt = ShopProductsJavaScriptNotesForViewCode.txt
+		NOTES\UserInfoAndPasswordList.txt = NOTES\UserInfoAndPasswordList.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataInsertScripts", "DataInsertScripts", "{280B3AAE-FE70-4D10-9B3F-ED419B09DC32}"
+	ProjectSection(SolutionItems) = preProject
+		DataInsertScripts\01-TESTED-CreateDatabaseSchemaAndInsertData-REV03.sql = DataInsertScripts\01-TESTED-CreateDatabaseSchemaAndInsertData-REV03.sql
+		DataInsertScripts\02-CreateSchemaOnly-REV03.sql = DataInsertScripts\02-CreateSchemaOnly-REV03.sql
+		DataInsertScripts\03-DataONLY-REV03.sql = DataInsertScripts\03-DataONLY-REV03.sql
+		DataInsertScripts\04-DropAndCreateSchemaOnly-REV03.sql = DataInsertScripts\04-DropAndCreateSchemaOnly-REV03.sql
+		DataInsertScripts\05-DropCreateAndData-REV03.sql = DataInsertScripts\05-DropCreateAndData-REV03.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvenBikeShop.Web", "AdvenBikeShop.Web\AdvenBikeShop.Web.csproj", "{5548FF65-2A6F-489C-BF1E-B5224330E55C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA75EEC4-9C26-471E-A941-20888942E28B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA75EEC4-9C26-471E-A941-20888942E28B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA75EEC4-9C26-471E-A941-20888942E28B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA75EEC4-9C26-471E-A941-20888942E28B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5548FF65-2A6F-489C-BF1E-B5224330E55C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5548FF65-2A6F-489C-BF1E-B5224330E55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5548FF65-2A6F-489C-BF1E-B5224330E55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5548FF65-2A6F-489C-BF1E-B5224330E55C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

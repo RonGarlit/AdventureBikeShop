@@ -1,0 +1,49 @@
+
+--Base Query for gathering Data from AdventureWord for Bike Shop Products and Vendor Table
+SELECT A.ProductID
+      ,A.Name
+      ,A.ProductNumber
+      ,A.Color
+	  ,A.ListPrice
+	  ,B.BusinessEntityID as "VendorId"
+	  ,C.Name as "VenderName"
+FROM [Production].[Product] as A INNER JOIN [Purchasing].[ProductVendor] as B 
+ON A.ProductID = B.ProductID
+INNER JOIN Purchasing.Vendor as C
+ON B.BusinessEntityID = C.BusinessEntityID
+
+
+
+
+
+
+SELECT A.ProductID
+      ,A.Name
+      ,A.ProductNumber
+      ,A.Color
+      ,A.ListPrice
+	  ,B.ProductID
+	  ,B.ProductPhotoID
+	  ,C.LargePhotoFileName
+  FROM Production.Product as A INNER Join Production.ProductProductPhoto as B
+  ON A.ProductID = B.ProductID
+  INNER JOIN Production.ProductPhoto as C
+  ON B.ProductPhotoID = C.ProductPhotoID
+-----------------------------------------------------------------------------
+// ############################################################################
+// # 
+// #  RG CodeGen Prototype Domain Generator -- 
+// # ---===> C O N F I G U R A T I O N  <===---
+// #
+// # connectionString:   Database connection string. Either localDb or SQL Server.
+// # domainNamespace:    Namespace of current project. Examples: Art.Domain, Emp.Domain, Car.Domain, etc.
+// # appName:            Short identifier of application. Examples: Art, Emp, Car, Plan, Doc, etc.
+// #
+string connectionString = @"Data Source=NYKJ05200180\SQL2012R2DEV;Initial Catalog=BikeShopDB;Integrated Security=SSPI"; 
+string domainNamespace = "BikeShop.Domain";
+string appName = "BikeShop";
+// ############################################################################
+-----------------------------------------------------------------------------
+
+
+

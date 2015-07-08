@@ -1,0 +1,322 @@
+﻿@*@using BikeShop.Domain*@
+@model AdvenBikeShop.Web.Areas.Shop.Models.ProductsModel
+
+@{
+    ViewBag.Title = "Shop";
+    if (ViewBag.Layout == "No")
+    {
+        Layout = null;
+    }
+}
+
+<div class="row">
+    @*This is the start of DIV for select criteria*@
+    <div class="col-xs-4 col-sm-4 col-md-4">
+        <form role="form">
+            <input id="pricefrom" name="pricefrom" type="hidden" value="@Model.PriceFrom" />
+            <input id="pricethru" name="pricethru" type="hidden" value="@Model.PriceThru" />
+            <input id="page" name="page" type="hidden" value="@Model.Page" />
+
+            @*Search Box*@
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-6 col-md-6 well-sm">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search&hellip;" data-autocomplete="/search" value="@Model.Q" />
+                            <span class="input-group-btn">
+                                <button id="searchbtn" type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                @*Search and Criteria Selection Section*@
+                <div class="row">
+                    @*Setup colored box around filters - Need more tweaking with BootStrap*@
+                    <div >
+                        @*Sort By Form Group*@
+                        <div class="form-group">
+                            <label for="sort" class="col-xs-3 col-sm-3 col-md-3 control-label" style="color: #f6931f; font-weight: bold;">Sort By: </label>
+                            <div class="col-xs-9 col-sm-9 col-md-9">
+                                <select id="sort" name="sort" class="form-control">
+                                    @foreach (var key in Model.SortItems.Keys)
+                                    {
+                                        var selected = (key == @Model.Sort) ? "selected" : "";
+                                        <option @selected value="@key">@Model.SortItems[key]</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        @*Catalog Selection Form Group*@
+                        <div class="form-group">
+                            <label for="sort" class="col-xs-3 col-sm-3 col-md-3 control-label" style="color: #f6931f; font-weight: bold;">Filter by Catalog: </label>
+                            <div class="col-xs-9 col-sm-9 col-md-9">
+
+                                @foreach (var category in Model.Categories)
+                                {
+                                    var check = Model.CategoryIds.Contains<int>((int)category.Id) ? "checked='checked'" : "";
+                                    <label class="checkbox">
+                                        <input name="categoryids" type="checkbox" value="@category.Id" @check>
+                                        @category.CategoryName
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="span2" style="width: 100px;">
+                            <div class="resetall"
+                                 @if (Model.Reset == false) { @: style="display:none;"
+                                                             }>
+                                <a class="closelink" href="javascript:void(0)">Reset All</a>
+                                <button type="button" class="close">&times;</button>
+                            </div>
+                        </div>
+
+
+
+                        @*Price Range JQuery Slider Form Group*@
+                        <div class="form-group">
+                            <label for="price-range" class="col-xs-3 col-sm-3 col-md-3 control-label" style="color: #f6931f; font-weight: bold;">Price range:</label>
+                            <div class="col-xs-9 col-sm-9 col-md-9">
+                                <div id="prices" class="control-label" style="color: #f6931f; font-weight: bold;"></div>
+                                <div class="control-label" style="color: #f6931f;">
+                                    <div id="price-range"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Submit Button*@
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    @*This is start of DIV for product listing*@
+    <div class="col-xs-8 col-sm-8 col-md-8">
+        <p>PLACEHOLDER FOR PRODUCT LISTING IN THIS COLUMN</p>
+        @Html.Partial("_Products", Model)
+
+    </div>
+</div>  @*End Row*@
+
+<hr />
+
+@*Development Information Section in this Row*@
+<div class="row">
+    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#DevelopmentInfo" aria-expanded="true" aria-controls="DevelopmentInfo">
+        View Development Info
+    </button>
+
+    <div id="DevelopmentInfo" class="collapse">
+        <div class="panel">
+            <h4>**CHECKING MODEL DATA TO VIEW HERE**</h4>
+            <hr />
+            <h5>Category List for selection list</h5>
+            <p>
+                @foreach (var category in Model.Categories)
+                {
+                <p>
+                    @category.CategoryName;
+                </p>
+
+                }
+
+                </p>
+
+                <h5>Vendor List for selection list</h5>
+                <p>
+                    @foreach (var vendor in Model.Vendors)
+                    {
+                    <p>
+                        @vendor.Name;
+                    </p>
+
+                    }
+                    </p>
+
+                    <h5>Product Item Info for Listing</h5>
+                    <p>
+                        @foreach (var item in Model.Items)
+                        {
+                        <p>
+                            @item.Name  -  @item.ProductNumber;
+                        </p>
+
+                        }
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+            @*Conditional Stuff for JavaScript/JQuery*@
+            @if (Layout != null)
+            {
+
+                @section Scripts
+{
+
+                    <script type="text/javascript">
+                        // START OF MAIN SCRIPT BLOCK ABOVE THIS COMMENT
+
+                        // BikeShopJS NameSpace Call
+                        BikeShopJS.namespace("BikeShop").Products = (function () {
+
+                            var utils = BikeShopJS.BikeShop.Utils;
+                            //var history = BikeShopJS.BikeShop.History;
+
+                            //Activate Paging
+                            var activatePager = function () {
+
+                                $("a[name^='page']").on("click", function (event) {
+                                    var parent = $(this).parent();
+                                    if (parent.hasClass('disabled')) return utils.stopEvent(event);
+                                    if (parent.hasClass('active')) return utils.stopEvent(event);
+
+                                    var page = $(this).attr('href').substr(1);
+                                    $("#page").val(page);
+                                    $("form").submit();
+
+                                    return utils.stopEvent(event);
+                                });
+                            };
+
+                            // Activate Filters
+                            var activateFilters = function () {
+
+                                // activate autocomplete in search box
+                                var $input = $("#q");
+                                var source = $input.attr("data-autocomplete");
+                                $input.autocomplete({ source: source });
+
+                                // activate sort and artist filters
+                                $("select[name='sort'], input[name='categoryids']")
+                                   .on("change", function () {
+                                       $("#page").val(1);
+                                       $("form").submit();
+                                   });
+
+                                // ACTIVATE PRICE SLIDER
+                                $("#price-range").slider({
+                                    range: true,
+                                    min: 0,
+                                    max: 5000,
+                                    values: [$('#pricefrom').val(), $('#pricethru').val()],
+                                    change: function (event, ui) {
+                                        $('#pricefrom').val(ui.values[0]);
+                                        $('#pricethru').val(ui.values[1]);
+                                        $("#page").val(1);
+                                        $("form").submit();
+                                    },
+                                    slide: function (event, ui) {
+                                        $("#prices").html("$" + ui.values[0] + " - $" + ui.values[1]);
+                                    }
+                                });
+
+                                $("#prices").html("$" + $('#pricefrom').val() + " - $" + $('#pricethru').val());
+                                // END OF PRICE SLIDER
+
+
+                                // reset all has been clicked
+                                $(".close,.closelink").on("click", function (event) {
+
+                                    $('#content').load("/products?layout=false", function () {
+                                        // ** zero timeout pattern
+
+                                        setTimeout(function () {
+                                            activatePager();
+                                            activateFilters();
+
+                                            // push new state to history
+                                            //var state = "?" + $("form").serialize();
+                                            //history.push(state);
+
+                                        }, 0);
+                                    });
+                                });
+
+                                $("form").submit(ajaxSubmit);
+
+                            };
+
+                            // submitted when filters are changed
+
+                            var ajaxSubmit = function (event) {
+
+                                // push current state to history
+                                //var state = "?" + $("form").serialize();
+                                //history.push(state);
+
+                                $(".resetall").show();
+
+                                var $form = $(this);
+                                var options = {
+                                    url: "/products",
+                                    type: "GET",
+                                    data: $form.serialize()
+                                };
+
+                                $.ajax(options).done(function (data) {
+                                    $("#products").replaceWith(data);
+                                    // ** zero timeout pattern
+
+                                    setTimeout(function () {
+                                        activatePager();
+                                    }, 0);
+                                });
+
+                                return utils.stopEvent(event);
+                            };
+
+                            // history items
+
+                            // popState is called when browser backward or forward button is clicked
+                            //var popState = function (state) {
+
+                            //    $('#content').load(state.url + "&layout=false", function () {
+                            //        // ** zero timeout pattern
+
+                            //        setTimeout(function () {
+                            //            activatePager();
+                            //            activateFilters();
+                            //        }, 0);
+                            //    });
+                            //};
+
+                            //history.init(popState);
+
+                            // replace state when page is rendered first time
+                            //var state = "?" + $("form").serialize();
+                            //history.replace(state);
+
+                            var start = function () {
+                                activatePager();
+                                activateFilters();
+
+                            };
+
+                            // the revealing part of the revealing module pattern
+                            return { start: start };
+
+
+                        })();
+
+                        $(function () {
+
+                            // ** facade pattern
+                            var products = BikeShopJS.BikeShop.Products;
+                            products.start();
+                        });
+
+                        // END OF MAIN SCRIPT BLOCK AFTER THIS COMMENT
+                    </script>
+                }
+            }
+
+
+
+
+
+

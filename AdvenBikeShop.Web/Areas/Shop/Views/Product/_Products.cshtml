@@ -1,0 +1,40 @@
+﻿@using AdvenBikeShop.Web.Code.Paginate
+@model AdvenBikeShop.Web.Areas.Shop.Models.ProductsModel
+
+<div id="products">
+
+    <div>
+        @Html.Pager(Model)
+    </div>
+
+    <div class="panel">
+        @if (!Model.Items.Any())
+        {
+            <div>
+                <p>No products meet your criteria.</p>
+                <p>Select the yellow 'Reset All' button and try again.</p>
+            </div>
+        }
+        else
+        {
+            foreach (var product in Model.Items)
+            {
+                <div class="col-xs-6 col-md-4">
+                    <a href="/products/@product.Id" class="thumbnail">
+                        <img src="/Images/@product.Image" alt="" class="img-thumbnail">
+                        <div class="caption">
+                            <div class="text-primary">@product.Name</div>
+                            <div class="text-primary">@product.ListPrice</div>
+
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+
+    <div>
+        @Html.Pager(Model)
+    </div>
+
+</div>
